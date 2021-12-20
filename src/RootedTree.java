@@ -3,8 +3,14 @@ import java.io.IOException;
 
 public class RootedTree {
 
+    final GraphNode root;
+    GraphNode[] nodes;
+    GraphEdge[] edges;
+
     // O(1)
-    public RootedTree(){}
+    public RootedTree(GraphNode root){
+        this.root = root;
+    }
 
 
     
