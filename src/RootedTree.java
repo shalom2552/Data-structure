@@ -8,8 +8,8 @@ public class RootedTree {
     GraphEdge[] edges;
 
     // O(1)
-    public RootedTree(GraphNode root){
-        this.root = root;
+    public RootedTree(int key){
+        this.root = new GraphNode(key, null, null);
     }
 
 

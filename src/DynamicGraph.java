@@ -9,7 +9,7 @@ public class DynamicGraph {
     
 
     public GraphNode insertNode(int nodeKey){
-        GraphNode node = new GraphNode(nodeKey);
+        GraphNode node = new GraphNode(nodeKey, null, null);
         GraphNode[] old_nodes = this.tree.nodes;
         int num_nodes = old_nodes.length;
         GraphNode[] new_nodes = new GraphNode[num_nodes + 1];
@@ -41,8 +41,7 @@ public class DynamicGraph {
     }
 
     public GraphEdge insertEdge(GraphNode from, GraphNode to){
-
-        return res;
+        return null;
     }
 
     public void deleteEdge(GraphEdge edge){
@@ -50,13 +49,11 @@ public class DynamicGraph {
     }
 
     public RootedTree scc(){
-        RootedTree res = null;
-        return res;
+        return null;
     }
 
     public RootedTree bfs(GraphNode source){
-        RootedTree res = null;
-        return res;
+        return null;
     }
 
 
