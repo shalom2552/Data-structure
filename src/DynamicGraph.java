@@ -19,7 +19,9 @@ public class DynamicGraph {
     }
 
     public void deleteNode(GraphNode node){
-
+        if (node.getInDegree == 0 && node.getOutDegree == 0){
+            // delete node...
+        }
     }
 
 //    public GraphNode insertNode(int nodeKey){
@@ -62,6 +64,9 @@ public class DynamicGraph {
 
     }
 
+    // צריך להחזיר עץ מושרש עם שורש 'דמיוני' אשר יש לו n ילדים (כאשר n מס' הרכיבים הקשירים שמצאנו בגרף
+    // scc מריץ פעמיים dfs. אתם מתבקשים להחזיר את הפלט של ה dfs השני שמיוצג ע"י המחלקה RootedTree לאחר שהוספתם צומת דימיוני.
+    // כמו כן, חשוב לשים לב שדאגנו לקבע את סדר סריקת הצמתים והקשתות בהרצת dfs
     public RootedTree scc(){
         return null;
     }
