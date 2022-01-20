@@ -2,66 +2,57 @@ public class DynamicGraph {
 
     RootedTree tree;
 
-    LinkedList<GraphNode> nodes;
-    LinkedList<GraphEdge> edges;
+    GraphNode nodes_head;
+    GraphEdge edges_head;
 
     // default constructor
     public DynamicGraph(){
-        this.nodes = null;
-        this.edges = null;
+        this.nodes_head = null;
+        this.edges_head = null;
     }
 
 
     public GraphNode insertNode(int nodeKey){
-        Node<GraphNode> node = new Node<>(new GraphNode(nodeKey, null, null), null, null);
-        this.nodes.Insert(node);
-        return node.pointer;
+        GraphNode new_node = new GraphNode(nodeKey);
+        if (this.nodes_head != null){
+            this.nodes_head.prev = new_node;
+            new_node.next = nodes_head;
+        }
+        this.nodes_head = new_node;
+        return new_node;
     }
 
     public void deleteNode(GraphNode node){
-        if (node.getInDegree == 0 && node.getOutDegree == 0){
-            // delete node...
+        if (node.getInDegree() == 0 && node.getOutDegree() == 0){
+            //nodes.Delete(node);
+            if (node.prev != null) {
+                node.prev.next = node.next;
+            } else {
+                this.nodes_head = node.next;
+            }
+            if (node.next != null){
+                node.next.prev = node.prev;
+            }
         }
     }
 
-//    public GraphNode insertNode(int nodeKey){
-//        GraphNode node = new GraphNode(nodeKey, null, null);
-//        GraphNode[] old_nodes = this.tree.nodes;
-//        int num_nodes = old_nodes.length;
-//        GraphNode[] new_nodes = new GraphNode[num_nodes + 1];
-//        for (int i = 0; i < num_nodes; i++) {
-//            new_nodes[i] = old_nodes[i];
-//        }
-//        new_nodes[num_nodes + 1] = node;
-//        this.tree.nodes = new_nodes;
-//        return node;
-//    }
-//
-//    public void deleteNode(GraphNode node){
-//        // TODO those algorithms can't be implemented that way!!
-//        // TODO they have to be O(1), then maybe linked lists?
-//        if (node.getInDegree() == 0 && node.getOutDegree() == 0){
-//            int key = node.getKey();
-//            GraphNode[] old_nodes = this.tree.nodes;
-//            int num_nodes = old_nodes.length;
-//            GraphNode[] new_nodes = new GraphNode[num_nodes - 1];
-//            int index = 0;
-//            for (GraphNode old_node : old_nodes) {
-//                if (old_node.getKey() != key) {
-//                    new_nodes[index] = old_node;
-//                    index++;
-//                }
-//            }
-//            this.tree.nodes = new_nodes;
-//        }
-//    }
 
     public GraphEdge insertEdge(GraphNode from, GraphNode to){
-        return null;
+        GraphEdge new_edge = new GraphEdge(from, to);
+        // Add the new edge to Graph's edges list
+        if (this.edges_head != null){
+            new_edge.next = this.edges_head;
+            this.edges_head.prev = new_edge;
+        } else {
+            this.edges_head = new_edge;
+        }
+        return new_edge;
     }
 
     public void deleteEdge(GraphEdge edge){
+        // Remove from the edges list
 
+        // remove the in and out list of the corresponding nodes
     }
 
     // צריך להחזיר עץ מושרש עם שורש 'דמיוני' אשר יש לו n ילדים (כאשר n מס' הרכיבים הקשירים שמצאנו בגרף

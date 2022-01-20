@@ -9,7 +9,7 @@ public class RootedTree {
 
     // O(1)
     public RootedTree(int key){
-        this.root = new GraphNode(key, null, null);
+        this.root = new GraphNode(key);
     }
 
 

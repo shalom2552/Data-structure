@@ -4,55 +4,50 @@ public class GraphNode {
 
     // TODO implement some data structure for the edgens of the node
     // TODO is this node need to be implemented by the left_child-right_sibling way?
+//    GraphNode left_child;
+//    GraphNode right_sibling;
+//    boolean is_leaf;
+    GraphNode prev;
+    GraphNode next;
+
+    GraphNode parent;
     GraphNode left_child;
-    GraphNode right_sibling;
-    boolean is_leaf;
-
-    // Linked list method
-    LinkedList<GraphNode> children;
-    LinkedList<GraphNode> parents;
+    GraphNode right_civilian;
 
 
-    public GraphNode(int key, GraphNode left_child, GraphNode right_sibling) {
+    public GraphNode(int key) {
         this.key = key;
-        this.left_child = left_child;
-        this.right_sibling = right_sibling;
-        this.is_leaf = left_child == null;
+//        this.left_child = left_child;
+//        this.right_sibling = right_sibling;
+//        this.is_leaf = left_child == null;
+        this.prev = null;
+        this.next = null;
+        this.parent = null;
+        this.left_child = null;
+        this.right_civilian = null;
     }
 
 
-    // Linked list use way
     // O(deg_out(v))
     // out degree of node v
     public int getOutDegree() {
-        return children.GetLength();
+        if (this.left_child == null) return 0;
+        GraphNode focus_node = this.left_child;
+        int counter = 1;
+        while (focus_node.right_civilian != null){
+            counter++;
+            focus_node = focus_node.right_civilian;
+        }
+        return counter;
     }
+
 
     // O(deg_in(v))
     // in degree of node v
+    // TODO isn't that only 0 ot 1?
     public int getInDegree(){
-        return parents.GetLength();
+        return ((this.parent == null) ? 0 : 1);
     }
-
-
-
-//      left_child-right_sibling way
-//    // O(deg_out(v))
-//    // out degree of node v
-//    public int getOutDegree(){
-//        int count = 0;
-//        if (this.left_child == null){
-//            return count;
-//        }
-//        count = 1;
-//        GraphNode child = this.left_child;
-//        while (child.right_sibling != null){
-//            child = right_sibling.right_sibling;
-//            count++;
-//        }
-//        return count;
-//    }
-
 
 
     // O(1)
