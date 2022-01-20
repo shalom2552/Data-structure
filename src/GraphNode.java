@@ -7,8 +7,8 @@ public class GraphNode {
 //    GraphNode left_child;
 //    GraphNode right_sibling;
 //    boolean is_leaf;
-    GraphNode prev;
-    GraphNode next;
+    protected GraphNode prev;
+    protected  GraphNode next;
 
     GraphNode parent;
     GraphNode left_child;
