@@ -1,30 +1,36 @@
 /**
+ * @author : Shalom Mauda, Eliahu Israel Amar
+ * @mailto : shalom2552@gmail.com
+ * @created : 14/12/2021, Tuesday
  *
- * Core DynamicGraph class
+ * Implementation of a dynamic data structure,
+ * as part of the course 'Data Structure and Algorithms' curse taught at Technion - israel institute of technology.
  *
- * by @shalom_mauda @eliyahu_amar
+ * This is the main file of the data structure
+ * It has actions and algorithms learned in the course
  *
- * --- DYNAMIC-GRAPH --- */
+ * --- DYNAMIC-GRAPH ---
+ */
 public class DynamicGraph {
 
     static int tick;
     List graphNodes;
-    GraphEdge edges_head;
 
     /**
      * Default constructor
      */
-    public DynamicGraph(){
+    public DynamicGraph() {
         this.graphNodes = new List();
     }
 
     /**
      * insert a new node into the graph
      * complexity: O(1)
+     *
      * @param nodeKey key to the new node
      * @return the new added node
      */
-    public GraphNode insertNode(int nodeKey){
+    public GraphNode insertNode(int nodeKey) {
         GraphNode new_node = new GraphNode(nodeKey);
         Element node_pointer = new Element(new_node);
         graphNodes.insert(node_pointer);
@@ -33,12 +39,13 @@ public class DynamicGraph {
     }
 
     /**
+     * Delete a node from the graph
      *
-     * @param node
+     * @param node to remove
      */
-    public void deleteNode(GraphNode node){
-        if (node.getInDegree() == 0 && node.getOutDegree() == 0){
-            if (node.pointer == graphNodes.last){
+    public void deleteNode(GraphNode node) {
+        if (node.getInDegree() == 0 && node.getOutDegree() == 0) {
+            if (node.pointer == graphNodes.last) {
                 graphNodes.last = graphNodes.last.prev;
             }
             graphNodes.list.delete(node.pointer);
@@ -46,25 +53,22 @@ public class DynamicGraph {
     }
 
     /**
+     * Adding a new edge to the graph
      *
-     * @param from
-     * @param to
-     * @return
+     * @param from graph node
+     * @param to   graph node
+     * @return the created edge
      */
-    public GraphEdge insertEdge(GraphNode from, GraphNode to){
-        GraphEdge edge = new GraphEdge(from, to);
-        /*
-        * edge.from.outEdges.list.insert(edge.to_pointer);
-        * edge.to.inEdges.list.insert(edge.from_pointer);
-        */
-        return edge;
+    public GraphEdge insertEdge(GraphNode from, GraphNode to) {
+        return new GraphEdge(from, to);
     }
 
     /**
+     * Deleting of an edge from the graph
      *
-     * @param edge
+     * @param edge to remove
      */
-    public void deleteEdge(GraphEdge edge){
+    public void deleteEdge(GraphEdge edge) {
         // fix last element in the lists
         if (edge.to_pointer == edge.from.outEdges.last)
             edge.from.outEdges.last = edge.from.outEdges.last.prev;
@@ -77,23 +81,24 @@ public class DynamicGraph {
 
 
     /**
+     * implementation of the SCC algorithm
      *
-     * @return
+     * @return rooted tree
      */
-    public RootedTree scc(){
+    public RootedTree scc() {
         RootedTree tree = new RootedTree();
-        tree.root = new GraphNode(0); // TODO 0?
+        tree.root = new GraphNode(0);
         List nodes = dfs(this.graphNodes);
         transpose(nodes);
         List scc_nodes = dfs(nodes);
         transpose(nodes);
         Element node = scc_nodes.list.head;
-        while (node != null){
+        while (node != null) {
             node.pointer.place_holder = new GraphNode(node.pointer.key);
             node = node.next;
         }
         node = scc_nodes.list.head;
-        while (node != null){
+        while (node != null) {
             if (node.pointer.parent == null)
                 new GraphEdge(tree.root, node.pointer.place_holder);
             else new GraphEdge(node.pointer.parent.place_holder, node.pointer.place_holder);
@@ -103,12 +108,13 @@ public class DynamicGraph {
     }
 
     /**
+     * Transpose all the graph edges
      *
-     * @param nodes
+     * @param nodes list of the graph nodes
      */
-    public void transpose(List nodes){
+    public void transpose(List nodes) {
         Element node = nodes.list.head;
-        while (node != null){
+        while (node != null) {
             List outEdges = node.pointer.outEdges;
             node.pointer.outEdges = node.pointer.inEdges;
             node.pointer.inEdges = outEdges;
@@ -117,10 +123,16 @@ public class DynamicGraph {
     }
 
 
-    public void bfs_init(GraphNode source, List list){
-        Integer negative_inf = Integer.MIN_VALUE;
+    /**
+     * Init function for the bfs algorithm
+     *
+     * @param source graph node
+     * @param list   of graph nodes
+     */
+    public void bfs_init(GraphNode source, List list) {
+        int negative_inf = Integer.MIN_VALUE;
         Element node = this.graphNodes.list.head;
-        while (node != null){
+        while (node != null) {
             node.pointer.color = 'w';
             node.pointer.d = negative_inf;
             node.pointer.parent = null;
@@ -133,20 +145,22 @@ public class DynamicGraph {
     }
 
     /**
+     * implementation of the BFS algorithm
      * colors: 'w': white,'g': gray,'b': black.
-     * @param source
-     * @return
+     *
+     * @param source graph node
+     * @return rooted tree
      */
-    public RootedTree bfs(GraphNode source){
+    public RootedTree bfs(GraphNode source) {
         RootedTree tree = new RootedTree();
         List list = new List();
         bfs_init(source, list);
         source.place_holder = new GraphNode(source.key);
-        while (list.last != null){
+        while (list.last != null) {
             Element node = list.pop();
             Element neighbor = node.pointer.outEdges.last;
-            while (neighbor != null){
-                if (neighbor.pointer.color == 'w'){
+            while (neighbor != null) {
+                if (neighbor.pointer.color == 'w') {
                     neighbor.pointer.color = 'g';
                     neighbor.pointer.d = node.pointer.d + 1;
                     neighbor.pointer.parent = node.pointer;
@@ -165,28 +179,23 @@ public class DynamicGraph {
     }
 
     /**
+     * implementation of the DFS algorithm
      *
-     * @param nodes
-     * @return
+     * @param nodes list of graph nodes
+     * @return list of graph nodes
      */
-    public List dfs(List nodes){
+    public List dfs(List nodes) {
         Element node = nodes.list.head;
         List dfs_nodes = new List();
-        while (node != null){
+        while (node != null) {
             node.pointer.color = 'w';
             node.pointer.parent = null;
             node.pointer.place_holder = null;
             node = node.next;
         }
         tick = 0;
-// ==============================================================================
-        node = nodes.list.head;
-        while (node != null && node.next != null)
-            node = node.next;
-// ====TODO====^^^^^^^===========================================================
-//        node = nodes.last;
-// ==============================================================================
-        while (node != null){
+        node = nodes.last;
+        while (node != null) {
             if (node.pointer.color == 'w')
                 dfs_visit(dfs_nodes, node.pointer);
             node = node.prev;
@@ -195,21 +204,21 @@ public class DynamicGraph {
     }
 
 
-
     /**
+     * implementation of the DFS visit
      *
-     * @param nodes
-     * @param node
+     * @param nodes list of graph nodes
+     * @param node  graph node
      */
-    public void dfs_visit(List nodes, GraphNode node){
+    public void dfs_visit(List nodes, GraphNode node) {
         tick++;
         node.d = tick;
         node.color = 'g';
         Element neighbor = node.outEdges.list.head;
         while (neighbor != null && neighbor.next != null)
             neighbor = neighbor.next;
-        while (neighbor != null){
-            if (neighbor.pointer.color == 'w'){
+        while (neighbor != null) {
+            if (neighbor.pointer.color == 'w') {
                 neighbor.pointer.parent = node;
                 dfs_visit(nodes, neighbor.pointer);
             }

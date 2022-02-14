@@ -1,3 +1,15 @@
+/**
+ * @author : Shalom Mauda, Eliahu Israel Amar
+ * @mailto : shalom2552@gmail.com
+ * @created : 14/12/2021, Tuesday
+ *
+ * Implementation of a dynamic data structure,
+ * as part of the course 'Data Structure and Algorithms' curse taught at Technion - israel institute of technology.
+ *
+ * Implementation of a node in a graph
+ *
+ * --- GRAPH-NODE ---
+ */
 public class GraphNode {
 
     int key;
@@ -18,23 +30,35 @@ public class GraphNode {
     }
 
 
-    // O(deg_out(v))
-    // out degree of node v
+    /**
+     * Returns the amount edges going out of the node
+     * Complexity: O(out degree(v))
+     *
+     * @return length of the out edges list
+     */
     public int getOutDegree() {
         return this.outEdges.list.length;
     }
 
 
-    // O(deg_in(v))
-    // in degree of node v
-    public int getInDegree(){
+    /**
+     * Returns the amount edges going in to the node
+     * Complexity: O(in degree(v))
+     *
+     * @return length of the in edges list
+     */
+    public int getInDegree() {
         return this.inEdges.list.length;
     }
 
 
-    // O(1)
-    public int getKey(){
-    return this.key;
+    /**
+     * Complexity: O(1)
+     *
+     * @return key of the node
+     */
+    public int getKey() {
+        return this.key;
     }
 
 

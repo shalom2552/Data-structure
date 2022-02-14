@@ -1,19 +1,33 @@
-// A class to represent a queue
-class List
-{
+/**
+ * @author : Shalom Mauda, Eliahu Israel Amar
+ * @mailto : shalom2552@gmail.com
+ * @created : 14/12/2021, Tuesday
+ *
+ * Implementation of a dynamic data structure,
+ * as part of the course 'Data Structure and Algorithms' curse taught at Technion - israel institute of technology.
+ *
+ * Implementation of a Queue\List
+ *
+ * --- LIST ---
+ */
+class List {
 
     LinkedList list;
     Element last;
 
-    public List(){
+    /**
+     * Default constructor
+     */
+    public List() {
         this.list = new LinkedList();
     }
 
     /**
+     * Constructor with the first element
      *
-     * @param element
+     * @param element first to insert
      */
-    public List(Element element){
+    public List(Element element) {
         element.next = null;
         element.prev = null;
         this.last = element;
@@ -21,11 +35,12 @@ class List
     }
 
     /**
+     * Adding of a new element to the list
      *
-     * @param element
+     * @param element to add
      */
-    public void insert(Element element){
-        if (this.last == null){
+    public void insert(Element element) {
+        if (this.last == null) {
             list.insert(element);
         } else {
             list.insertAfter(element, last);
@@ -34,8 +49,9 @@ class List
     }
 
     /**
+     * Returns and remove the most waited element in the list
      *
-     * @return
+     * @return the oldest element
      */
     public Element pop() {
         if (list.head != null) {
