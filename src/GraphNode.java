@@ -1,12 +1,11 @@
 public class GraphNode {
 
     private final int key;
+    int f;
+    int d;
+    String color;
+    GraphNode parent;
 
-    // TODO implement some data structure for the edgens of the node
-    // TODO is this node need to be implemented by the left_child-right_sibling way?
-//    GraphNode left_child;
-//    GraphNode right_sibling;
-//    boolean is_leaf;
     protected GraphNode prev;
     protected  GraphNode next;
 

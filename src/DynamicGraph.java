@@ -145,6 +145,28 @@ public class DynamicGraph {
         DynamicGraph G = new DynamicGraph();
         G.insertNode(5);
 
+//        Stack stack = new Stack<>();
+//
+//        Integer a = 1;
+//        Integer b = 2;
+//        Integer c = 3;
+//        stack.push(a);
+//        System.out.println("size" + (stack.size()));
+//        stack.push(b);
+//        System.out.println("size" + (stack.size()));
+//        stack.push(c);
+//        System.out.println("size" + (stack.size()));
+//        stack.pop();
+//        System.out.println(stack.peek());
+//        System.out.println("size" + (stack.size()));
+//        System.out.println(stack.peek());
+//        stack.pop();
+//        System.out.println(("size" + stack.size()));
+//        System.out.println(stack.peek());
+//        stack.pop();
+//        System.out.println(("size" + stack.size()));
+
+
     }
 
 }
