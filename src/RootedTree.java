@@ -48,9 +48,10 @@ public class RootedTree {
                 if (focus_element.pointer.key == negative_inf) {
                     if (queue.list.head != null) {
                         queue.insert(new Element(new GraphNode(negative_inf)));
+                        continue;
                     }
                 }
-                if (focus_element.pointer.outEdges.list.length > 0) {
+                if (focus_element.pointer.outEdges.list.head != null) {
                     Element focus_neighbor = focus_element.pointer.outEdges.list.head;
                     while (focus_neighbor != null) {
                         queue.insert(new Element(focus_neighbor.pointer));
@@ -63,7 +64,7 @@ public class RootedTree {
                     } else {
                         out.writeBytes(focus_element.pointer.key + "\n");
                     }
-                } else {
+                } else if (focus_element.pointer.key != negative_inf){
                     out.writeBytes(focus_element.pointer.key + ",");
                 }
             }
